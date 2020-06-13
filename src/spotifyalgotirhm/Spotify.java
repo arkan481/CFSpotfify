@@ -31,6 +31,7 @@ public class Spotify {
     private ArrayList<Music> userPlayList = new ArrayList<>();
     private ArrayList<Music> userReccomendation = new ArrayList<>();
     private ArrayList<Music> allMusic = new ArrayList<>();
+    private ArrayList<User> dummyUsers = new ArrayList<>();
 
     public void run() {
         populateData();
@@ -104,13 +105,33 @@ public class Spotify {
         }
     }
 
-    private void defineAlgorithm() {
-
+    private void defineAlgorithm(Music music) {
+           for (int i = 0; i < dummyUsers.size(); i++) {
+           // First for is used to loop every available user in the app
+            if (dummyUsers.get(i).getListenTo().contains(music)) {
+                /*
+                IF theres a similarity to a user in the app then the algorithm will grab all of those 
+                particular user playlist
+                */
+                for (int j = 0; j < dummyUsers.get(i).getListenTo().size(); j++) {
+                    /** after grabbing every song in the similar user playlist the program will re-set
+                     * the current user recommendation
+                     */
+                    if (userReccomendation.contains(dummyUsers.get(i).getListenTo().get(j))) {
+                        // checking if the value in the list duplicates
+                    }else {
+                        userReccomendation.add(dummyUsers.get(i).getListenTo().get(j));
+                    }
+                }
+            }
+        }
+        currentUser.setRecommendation(userReccomendation);
     }
 
-    private void suggestNextSong() {
+    private void suggestNextSong(Music music) {
         // TODO : SORT BY BAND OR GENRE
         // TODO : USER RECOMMENDATION DATA LIKE GENRE, ETC
+        defineAlgorithm(music);
     }
 
     private void playMusic(Music music) throws InterruptedException {
@@ -119,6 +140,7 @@ public class Spotify {
             Thread.sleep(500);
             System.out.print(".");
         }
+        suggestNextSong(music);
     }
 
     private void populateData() {
@@ -158,8 +180,26 @@ public class Spotify {
         jmt.setSongs(jmtSongs);
 
         // Populating the user
+        // User 1
         List<Music> dummyMusicList1 = new ArrayList<>();
+        dummyMusicList1.add(californiacation);
+        dummyMusicList1.add(althea);
+        dummyMusicList1.add(sdStreet);
         User dummyUser1 = new User("dummy user 1", dummyMusicList1);
+        
+        // User 2
+        List<Music> dummyMusicList2 = new ArrayList<>();
+        dummyMusicList2.add(gravity);
+        dummyMusicList2.add(californiacation);
+        dummyMusicList2.add(sdStreet);
+        User dummyUser2 = new User("dummy user 2", dummyMusicList2);
+        
+        // User 3
+        List<Music> dummyMusicList3 = new ArrayList<>();
+        dummyMusicList3.add(gravity);
+        dummyMusicList3.add(scarTissue);
+        dummyMusicList3.add(helpless);
+        User dummyUer3 = new User("dummy user 3",dummyMusicList3);
 
         // Populating app data
         allMusic.add(althea);
@@ -168,6 +208,9 @@ public class Spotify {
         allMusic.add(scarTissue);
         allMusic.add(gravity);
         allMusic.add(helpless);
+        dummyUsers.add(dummyUser1);
+        dummyUsers.add(dummyUser2);
+        dummyUsers.add(dummyUer3);
     }
 
 }

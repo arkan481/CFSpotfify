@@ -5,9 +5,11 @@
         <group>
             <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/model/Music.java</file>
             <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/model/User.java</file>
+            <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/model/genre/Alternative.java</file>
             <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/SpotifyAlgotirhm.java</file>
             <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/model/Band.java</file>
             <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/Spotify.java</file>
+            <file>file:/Users/arkan481/NetBeansProjects/SpotifyAlgotirhm/src/spotifyalgotirhm/model/genre/Genre.java</file>
         </group>
     </open-files>
 </project-private>
