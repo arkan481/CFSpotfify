@@ -18,7 +18,5 @@ public class Alternative extends Genre{
     public String getGenre() {
         return "Alternative";
     }
-
-
     
 }

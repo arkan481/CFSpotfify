@@ -50,11 +50,11 @@ public class Spotify {
         currentUser = new User("Current User", userPlayList);
         currentUser.setRecommendation(userReccomendation);
         dummyUsers.add(currentUser);
-        try {
-            menu();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Spotify.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            menu();
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(Spotify.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void menu() throws InterruptedException {
@@ -92,7 +92,7 @@ public class Spotify {
         }
     }
 
-    private void debugAlgorithm() {
+    public void debugAlgorithm() {
         System.out.println(currentUser.getName() + " is definetly interested in");
         System.out.format("%-5s%-25s%-15s%-7s", "No","Title", "Band", "Genre");
         System.out.println("");
@@ -116,7 +116,7 @@ public class Spotify {
 
     }
 
-    private void musicList(List<Music> musics) throws InterruptedException {
+    public void musicList(List<Music> musics) throws InterruptedException {
         if (musics.size() == 0) {
             System.out.println("We don't currently have any data on that, try listening to some music first");
         } else {
@@ -159,7 +159,6 @@ public class Spotify {
                      * after grabbing every song in the similar user playlist
                      * the program will re-set the current user recommendation
                      */
-                    
                     Map<String,String> map = new HashMap<>();
                     map.put(dummyUsers.get(i).getName(), dummyUsers.get(i).getListenTo().get(j).getTitle());
                     debugVar.add(map);
@@ -177,17 +176,16 @@ public class Spotify {
     }
 
     private void suggestNextSong(Music music) {
-        // TODO : SORT BY BAND OR GENRE
-        // TODO : USER RECOMMENDATION DATA LIKE GENRE, ETC
         defineAlgorithm(music);
     }
 
-    private void playMusic(Music music) throws InterruptedException {
+    public void playMusic(Music music) throws InterruptedException {
         System.out.println("Song " + music.getTitle() + " Is Now Playing");
         for (int i = 0; i < 3; i++) {
             Thread.sleep(500);
             System.out.print(".");
         }
+        System.out.println("");
         // Setting the recently played song for the current user
         List<Music> tempPlayList = currentUser.getListenTo();
         if (!tempPlayList.contains(music)) {
@@ -198,13 +196,12 @@ public class Spotify {
         suggestNextSong(music);
     }
 
-    private void populateData() {
-
+    public void populateData() {
         // Populating the band
         Band rhcp = new Band("RHCP");
         Band gd = new Band("Grateful Dead");
         Band jmt = new Band("JM Trio");
-
+        
         // Populating the music
         Music californiacation = new Music("Californiacation", rhcp, new Alternative());
         Music scarTissue = new Music("Scar Tissue", rhcp, new Alternative());
@@ -266,6 +263,67 @@ public class Spotify {
         dummyUsers.add(dummyUser1);
         dummyUsers.add(dummyUser2);
         dummyUsers.add(dummyUer3);
+        
     }
+    
+    public List<Music> tstTest() {
+        ArrayList<Music> test = new ArrayList<>();
+        
+        Music music = new Music("mako", new Band("dada"), new Funk());
+        
+        test.add(music);
+        
+        return test;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public ArrayList<Music> getUserPlayList() {
+        return userPlayList;
+    }
+
+    public void setUserPlayList(ArrayList<Music> userPlayList) {
+        this.userPlayList = userPlayList;
+    }
+
+    public ArrayList<Music> getUserReccomendation() {
+        return userReccomendation;
+    }
+
+    public void setUserReccomendation(ArrayList<Music> userReccomendation) {
+        this.userReccomendation = userReccomendation;
+    }
+
+    public ArrayList<Music> getAllMusic() {
+        return allMusic;
+    }
+
+    public void setAllMusic(ArrayList<Music> allMusic) {
+        this.allMusic = allMusic;
+    }
+
+    public ArrayList<User> getDummyUsers() {
+        return dummyUsers;
+    }
+
+    public void setDummyUsers(ArrayList<User> dummyUsers) {
+        this.dummyUsers = dummyUsers;
+    }
+
+    public ArrayList<Map<String, String>> getDebugVar() {
+        return debugVar;
+    }
+
+    public void setDebugVar(ArrayList<Map<String, String>> debugVar) {
+        this.debugVar = debugVar;
+    }
+    
+    
 
 }
