@@ -36,25 +36,25 @@ public class Spotify {
     private ArrayList<User> dummyUsers = new ArrayList<>();
 
     // this variable will be used to find out all of the necessary data for the algoritm testing
-    private ArrayList<Map<String,String>> debugVar = new ArrayList<>();
+    private ArrayList<Map<String, String>> debugVar = new ArrayList<>();
 
     // Method to run the app
     public void run() {
         populateData();
         /*
-        * Setting the current user for a run-time session
-        * userPlayList is an empty list of music that will changed as the user plays a song
-        * userRecommendation is an empty list of music that will be changed and defined by the 
-        * Collaborative Filtering Algorithm
+         * Setting the current user for a run-time session
+         * userPlayList is an empty list of music that will changed as the user plays a song
+         * userRecommendation is an empty list of music that will be changed and defined by the 
+         * Collaborative Filtering Algorithm
          */
         currentUser = new User("Current User", userPlayList);
         currentUser.setRecommendation(userReccomendation);
         dummyUsers.add(currentUser);
-//        try {
-//            menu();
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(Spotify.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            menu();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Spotify.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void menu() throws InterruptedException {
@@ -94,18 +94,18 @@ public class Spotify {
 
     public void debugAlgorithm() {
         System.out.println(currentUser.getName() + " is definetly interested in");
-        System.out.format("%-5s%-25s%-15s%-7s", "No","Title", "Band", "Genre");
+        System.out.format("%-5s%-25s%-15s%-7s", "No", "Title", "Band", "Genre");
         System.out.println("");
         for (int i = 0; i < currentUser.getListenTo().size(); i++) {
-            System.out.format("%-5d%-25s-15s%-7s", i + 1,currentUser.getListenTo().get(i).getTitle(),currentUser.getListenTo().get(i).getBand().getName(),
+            System.out.format("%-5d%-25s-15s%-7s", i + 1, currentUser.getListenTo().get(i).getTitle(), currentUser.getListenTo().get(i).getBand().getName(),
                     currentUser.getListenTo().get(i).getGenre().getGenre());
             System.out.println("");
         }
         System.out.println(currentUser.getName() + " calculated recommendation");
-        System.out.format("%-5s%-25s%-15s%-7s", "No","Title", "Band", "Genre");
+        System.out.format("%-5s%-25s%-15s%-7s", "No", "Title", "Band", "Genre");
         System.out.println("");
         for (int i = 0; i < currentUser.getRecommendation().size(); i++) {
-            System.out.format("%-5d%-25s%-15s%-7s", i + 1,currentUser.getRecommendation().get(i).getTitle() ,currentUser.getRecommendation().get(i).getBand().getName(),
+            System.out.format("%-5d%-25s%-15s%-7s", i + 1, currentUser.getRecommendation().get(i).getTitle(), currentUser.getRecommendation().get(i).getBand().getName(),
                     currentUser.getRecommendation().get(i).getGenre().getGenre());
             System.out.println("");
         }
@@ -151,18 +151,18 @@ public class Spotify {
             // First for loop is being used to loop every available user in the app
             if (dummyUsers.get(i).getListenTo().contains(music)) {
                 /*
-                IF theres a similarity to a user in the app then the algorithm will grab all of those 
-                particular user playlist
+                 IF theres a similarity to a user in the app then the algorithm will grab all of those 
+                 particular user playlist
                  */
                 for (int j = 0; j < dummyUsers.get(i).getListenTo().size(); j++) {
                     /**
                      * after grabbing every song in the similar user playlist
                      * the program will re-set the current user recommendation
                      */
-                    Map<String,String> map = new HashMap<>();
+                    Map<String, String> map = new HashMap<>();
                     map.put(dummyUsers.get(i).getName(), dummyUsers.get(i).getListenTo().get(j).getTitle());
                     debugVar.add(map);
-                    
+
                     if (userReccomendation.contains(dummyUsers.get(i).getListenTo().get(j))) {
                         // checking if the value in the list duplicates
                     } else {
@@ -201,7 +201,7 @@ public class Spotify {
         Band rhcp = new Band("RHCP");
         Band gd = new Band("Grateful Dead");
         Band jmt = new Band("JM Trio");
-        
+
         // Populating the music
         Music californiacation = new Music("Californiacation", rhcp, new Alternative());
         Music scarTissue = new Music("Scar Tissue", rhcp, new Alternative());
@@ -263,17 +263,7 @@ public class Spotify {
         dummyUsers.add(dummyUser1);
         dummyUsers.add(dummyUser2);
         dummyUsers.add(dummyUer3);
-        
-    }
-    
-    public List<Music> tstTest() {
-        ArrayList<Music> test = new ArrayList<>();
-        
-        Music music = new Music("mako", new Band("dada"), new Funk());
-        
-        test.add(music);
-        
-        return test;
+
     }
 
     public User getCurrentUser() {
@@ -323,7 +313,5 @@ public class Spotify {
     public void setDebugVar(ArrayList<Map<String, String>> debugVar) {
         this.debugVar = debugVar;
     }
-    
-    
 
 }

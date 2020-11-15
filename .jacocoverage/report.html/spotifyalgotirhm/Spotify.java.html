@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Spotify.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;SpotifyAlgotirhm&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">spotifyalgotirhm</a> &gt; <span class="el_source">Spotify.java</span></div><h1>Spotify.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package spotifyalgotirhm;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import spotifyalgotirhm.model.Band;
+import spotifyalgotirhm.model.Music;
+import spotifyalgotirhm.model.User;
+import spotifyalgotirhm.model.genre.Alternative;
+import spotifyalgotirhm.model.genre.Blues;
+import spotifyalgotirhm.model.genre.Funk;
+import spotifyalgotirhm.model.genre.Pop;
+
+/**
+ *
+ * @author arkan481
+ */
+<span class="fc" id="L27">public class Spotify {</span>
+
+    /**
+     * Operation Class All of app operation will be stored in this class
+     */
+    private User currentUser;
+<span class="fc" id="L33">    private ArrayList&lt;Music&gt; userPlayList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L34">    private ArrayList&lt;Music&gt; userReccomendation = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L35">    private ArrayList&lt;Music&gt; allMusic = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L36">    private ArrayList&lt;User&gt; dummyUsers = new ArrayList&lt;&gt;();</span>
+
+    // this variable will be used to find out all of the necessary data for the algoritm testing
+<span class="fc" id="L39">    private ArrayList&lt;Map&lt;String, String&gt;&gt; debugVar = new ArrayList&lt;&gt;();</span>
+
+    // Method to run the app
+    public void run() {
+<span class="fc" id="L43">        populateData();</span>
+        /*
+         * Setting the current user for a run-time session
+         * userPlayList is an empty list of music that will changed as the user plays a song
+         * userRecommendation is an empty list of music that will be changed and defined by the 
+         * Collaborative Filtering Algorithm
+         */
+<span class="fc" id="L50">        currentUser = new User(&quot;Current User&quot;, userPlayList);</span>
+<span class="fc" id="L51">        currentUser.setRecommendation(userReccomendation);</span>
+<span class="fc" id="L52">        dummyUsers.add(currentUser);</span>
+        try {
+<span class="fc" id="L54">            menu();</span>
+<span class="nc" id="L55">        } catch (InterruptedException ex) {</span>
+<span class="nc" id="L56">            Logger.getLogger(Spotify.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">    }</span>
+
+    private void menu() throws InterruptedException {
+<span class="fc" id="L61">        boolean stop = false;</span>
+<span class="fc" id="L62">        Scanner sc1 = new Scanner(System.in);</span>
+        int option;
+<span class="fc" id="L64">        System.out.println(&quot;Welcome to Spotify!&quot;);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        while (stop == false) {</span>
+<span class="fc" id="L66">            System.out.println(&quot;\n1. Play a song&quot;);</span>
+<span class="fc" id="L67">            System.out.println(&quot;2. Recently Played&quot;);</span>
+<span class="fc" id="L68">            System.out.println(&quot;3. Song Recommendation&quot;);</span>
+<span class="fc" id="L69">            System.out.println(&quot;4. Debug Algorithm&quot;);</span>
+<span class="fc" id="L70">            System.out.println(&quot;5. Exit&quot;);</span>
+<span class="fc" id="L71">            System.out.print(&quot;Your Option: &quot;);</span>
+<span class="fc" id="L72">            option = sc1.nextInt();</span>
+<span class="pc bpc" id="L73" title="5 of 6 branches missed.">            switch (option) {</span>
+                case 1:
+<span class="nc" id="L75">                    musicList(allMusic);</span>
+<span class="nc" id="L76">                    break;</span>
+                case 2:
+<span class="nc" id="L78">                    musicList(currentUser.getListenTo());</span>
+<span class="nc" id="L79">                    break;</span>
+                case 3:
+<span class="nc" id="L81">                    musicList(currentUser.getRecommendation());</span>
+<span class="nc" id="L82">                    break;</span>
+                case 4:
+<span class="nc" id="L84">                    debugAlgorithm();</span>
+<span class="nc" id="L85">                    break;</span>
+                case 5:
+<span class="fc" id="L87">                    stop = true;</span>
+<span class="fc" id="L88">                    break;</span>
+                default:
+<span class="nc" id="L90">                    System.out.println(&quot;Option Not Found...&quot;);</span>
+            }
+        }
+<span class="fc" id="L93">    }</span>
+
+    public void debugAlgorithm() {
+<span class="nc" id="L96">        System.out.println(currentUser.getName() + &quot; is definetly interested in&quot;);</span>
+<span class="nc" id="L97">        System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;No&quot;, &quot;Title&quot;, &quot;Band&quot;, &quot;Genre&quot;);</span>
+<span class="nc" id="L98">        System.out.println(&quot;&quot;);</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (int i = 0; i &lt; currentUser.getListenTo().size(); i++) {</span>
+<span class="nc" id="L100">            System.out.format(&quot;%-5d%-25s-15s%-7s&quot;, i + 1, currentUser.getListenTo().get(i).getTitle(), currentUser.getListenTo().get(i).getBand().getName(),</span>
+<span class="nc" id="L101">                    currentUser.getListenTo().get(i).getGenre().getGenre());</span>
+<span class="nc" id="L102">            System.out.println(&quot;&quot;);</span>
+        }
+<span class="nc" id="L104">        System.out.println(currentUser.getName() + &quot; calculated recommendation&quot;);</span>
+<span class="nc" id="L105">        System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;No&quot;, &quot;Title&quot;, &quot;Band&quot;, &quot;Genre&quot;);</span>
+<span class="nc" id="L106">        System.out.println(&quot;&quot;);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        for (int i = 0; i &lt; currentUser.getRecommendation().size(); i++) {</span>
+<span class="nc" id="L108">            System.out.format(&quot;%-5d%-25s%-15s%-7s&quot;, i + 1, currentUser.getRecommendation().get(i).getTitle(), currentUser.getRecommendation().get(i).getBand().getName(),</span>
+<span class="nc" id="L109">                    currentUser.getRecommendation().get(i).getGenre().getGenre());</span>
+<span class="nc" id="L110">            System.out.println(&quot;&quot;);</span>
+        }
+<span class="nc" id="L112">        System.out.println(&quot;the recommendation is inherited from&quot;);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        for (int i = 0; i &lt; debugVar.size(); i++) {</span>
+<span class="nc" id="L114">            System.out.println(debugVar.get(i));</span>
+        }
+
+<span class="nc" id="L117">    }</span>
+
+    public void musicList(List&lt;Music&gt; musics) throws InterruptedException {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (musics.size() == 0) {</span>
+<span class="nc" id="L121">            System.out.println(&quot;We don't currently have any data on that, try listening to some music first&quot;);</span>
+        } else {
+<span class="nc" id="L123">            boolean stop = false;</span>
+<span class="nc" id="L124">            Scanner sc1 = new Scanner(System.in);</span>
+            int option;
+<span class="nc" id="L126">            int possibleIndex = musics.size();</span>
+<span class="nc" id="L127">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;No&quot;, &quot;Title&quot;, &quot;Band&quot;, &quot;Genre&quot;);</span>
+<span class="nc" id="L128">            System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L129">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;--&quot;, &quot;-----&quot;, &quot;----&quot;, &quot;-----&quot;);</span>
+<span class="nc" id="L130">            System.out.println(&quot;&quot;);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">            for (int i = 0; i &lt; musics.size(); i++) {</span>
+<span class="nc" id="L132">                System.out.format(&quot;%-5d%-25s%-15s%-7s&quot;, i + 1, musics.get(i).getTitle(), musics.get(i).getBand().getName(), musics.get(i).getGenre().getGenre());</span>
+<span class="nc" id="L133">                System.out.println(&quot;&quot;);</span>
+            }
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            while (stop == false) {</span>
+<span class="nc" id="L136">                System.out.print(&quot;Your Option: &quot;);</span>
+<span class="nc" id="L137">                option = sc1.nextInt();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">                if (option &gt; possibleIndex) {</span>
+<span class="nc" id="L139">                    System.out.println(&quot;Invalid Option&quot;);</span>
+                } else {
+<span class="nc" id="L141">                    stop = true;</span>
+<span class="nc" id="L142">                    playMusic(musics.get(option - 1));</span>
+<span class="nc" id="L143">                    break;</span>
+                }
+            }
+        }
+<span class="nc" id="L147">    }</span>
+
+    private void defineAlgorithm(Music music) {
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        for (int i = 0; i &lt; dummyUsers.size(); i++) {</span>
+            // First for loop is being used to loop every available user in the app
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            if (dummyUsers.get(i).getListenTo().contains(music)) {</span>
+                /*
+                 IF theres a similarity to a user in the app then the algorithm will grab all of those 
+                 particular user playlist
+                 */
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                for (int j = 0; j &lt; dummyUsers.get(i).getListenTo().size(); j++) {</span>
+                    /**
+                     * after grabbing every song in the similar user playlist
+                     * the program will re-set the current user recommendation
+                     */
+<span class="nc" id="L162">                    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L163">                    map.put(dummyUsers.get(i).getName(), dummyUsers.get(i).getListenTo().get(j).getTitle());</span>
+<span class="nc" id="L164">                    debugVar.add(map);</span>
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                    if (userReccomendation.contains(dummyUsers.get(i).getListenTo().get(j))) {</span>
+                        // checking if the value in the list duplicates
+                    } else {
+<span class="nc" id="L169">                        userReccomendation.add(dummyUsers.get(i).getListenTo().get(j));</span>
+                    }
+
+                }
+            }
+        }
+<span class="nc" id="L175">        currentUser.setRecommendation(userReccomendation);</span>
+<span class="nc" id="L176">    }</span>
+
+    private void suggestNextSong(Music music) {
+<span class="nc" id="L179">        defineAlgorithm(music);</span>
+<span class="nc" id="L180">    }</span>
+
+    public void playMusic(Music music) throws InterruptedException {
+<span class="nc" id="L183">        System.out.println(&quot;Song &quot; + music.getTitle() + &quot; Is Now Playing&quot;);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L185">            Thread.sleep(500);</span>
+<span class="nc" id="L186">            System.out.print(&quot;.&quot;);</span>
+        }
+<span class="nc" id="L188">        System.out.println(&quot;&quot;);</span>
+        // Setting the recently played song for the current user
+<span class="nc" id="L190">        List&lt;Music&gt; tempPlayList = currentUser.getListenTo();</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        if (!tempPlayList.contains(music)) {</span>
+            // Checking if value duplicates
+<span class="nc" id="L193">            tempPlayList.add(music);</span>
+<span class="nc" id="L194">            currentUser.setListenTo(tempPlayList);</span>
+        }
+<span class="nc" id="L196">        suggestNextSong(music);</span>
+<span class="nc" id="L197">    }</span>
+
+    public void populateData() {
+        // Populating the band
+<span class="fc" id="L201">        Band rhcp = new Band(&quot;RHCP&quot;);</span>
+<span class="fc" id="L202">        Band gd = new Band(&quot;Grateful Dead&quot;);</span>
+<span class="fc" id="L203">        Band jmt = new Band(&quot;JM Trio&quot;);</span>
+
+        // Populating the music
+<span class="fc" id="L206">        Music californiacation = new Music(&quot;Californiacation&quot;, rhcp, new Alternative());</span>
+<span class="fc" id="L207">        Music scarTissue = new Music(&quot;Scar Tissue&quot;, rhcp, new Alternative());</span>
+
+<span class="fc" id="L209">        Music althea = new Music(&quot;Althea&quot;, gd, new Blues());</span>
+<span class="fc" id="L210">        Music sdStreet = new Music(&quot;Shakedown Street&quot;, gd, new Funk());</span>
+
+<span class="fc" id="L212">        Music gravity = new Music(&quot;Gravity&quot;, jmt, new Pop());</span>
+<span class="fc" id="L213">        Music helpless = new Music(&quot;Helpless&quot;, jmt, new Funk());</span>
+
+        // Populating the band's songs
+        // RHCP Band
+<span class="fc" id="L217">        List&lt;Music&gt; rhcpSongs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L218">        rhcpSongs.add(californiacation);</span>
+<span class="fc" id="L219">        rhcpSongs.add(scarTissue);</span>
+<span class="fc" id="L220">        rhcp.setSongs(rhcpSongs);</span>
+
+        // GD Band
+<span class="fc" id="L223">        List&lt;Music&gt; gdSongs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L224">        gdSongs.add(althea);</span>
+<span class="fc" id="L225">        gdSongs.add(sdStreet);</span>
+<span class="fc" id="L226">        gd.setSongs(gdSongs);</span>
+
+        // JMT Band
+<span class="fc" id="L229">        List&lt;Music&gt; jmtSongs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L230">        jmtSongs.add(gravity);</span>
+<span class="fc" id="L231">        jmtSongs.add(helpless);</span>
+<span class="fc" id="L232">        jmt.setSongs(jmtSongs);</span>
+
+        // Populating the user
+        // User 1
+<span class="fc" id="L236">        List&lt;Music&gt; dummyMusicList1 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L237">        dummyMusicList1.add(californiacation);</span>
+<span class="fc" id="L238">        dummyMusicList1.add(althea);</span>
+<span class="fc" id="L239">        dummyMusicList1.add(sdStreet);</span>
+<span class="fc" id="L240">        User dummyUser1 = new User(&quot;dummy user 1&quot;, dummyMusicList1);</span>
+
+        // User 2
+<span class="fc" id="L243">        List&lt;Music&gt; dummyMusicList2 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L244">        dummyMusicList2.add(gravity);</span>
+<span class="fc" id="L245">        dummyMusicList2.add(californiacation);</span>
+<span class="fc" id="L246">        dummyMusicList2.add(sdStreet);</span>
+<span class="fc" id="L247">        User dummyUser2 = new User(&quot;dummy user 2&quot;, dummyMusicList2);</span>
+
+        // User 3
+<span class="fc" id="L250">        List&lt;Music&gt; dummyMusicList3 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L251">        dummyMusicList3.add(gravity);</span>
+<span class="fc" id="L252">        dummyMusicList3.add(scarTissue);</span>
+<span class="fc" id="L253">        dummyMusicList3.add(helpless);</span>
+<span class="fc" id="L254">        User dummyUer3 = new User(&quot;dummy user 3&quot;, dummyMusicList3);</span>
+
+        // Populating app data
+<span class="fc" id="L257">        allMusic.add(althea);</span>
+<span class="fc" id="L258">        allMusic.add(sdStreet);</span>
+<span class="fc" id="L259">        allMusic.add(californiacation);</span>
+<span class="fc" id="L260">        allMusic.add(scarTissue);</span>
+<span class="fc" id="L261">        allMusic.add(gravity);</span>
+<span class="fc" id="L262">        allMusic.add(helpless);</span>
+<span class="fc" id="L263">        dummyUsers.add(dummyUser1);</span>
+<span class="fc" id="L264">        dummyUsers.add(dummyUser2);</span>
+<span class="fc" id="L265">        dummyUsers.add(dummyUer3);</span>
+
+<span class="fc" id="L267">    }</span>
+
+    public User getCurrentUser() {
+<span class="nc" id="L270">        return currentUser;</span>
+    }
+
+    public void setCurrentUser(User currentUser) {
+<span class="nc" id="L274">        this.currentUser = currentUser;</span>
+<span class="nc" id="L275">    }</span>
+
+    public ArrayList&lt;Music&gt; getUserPlayList() {
+<span class="nc" id="L278">        return userPlayList;</span>
+    }
+
+    public void setUserPlayList(ArrayList&lt;Music&gt; userPlayList) {
+<span class="nc" id="L282">        this.userPlayList = userPlayList;</span>
+<span class="nc" id="L283">    }</span>
+
+    public ArrayList&lt;Music&gt; getUserReccomendation() {
+<span class="nc" id="L286">        return userReccomendation;</span>
+    }
+
+    public void setUserReccomendation(ArrayList&lt;Music&gt; userReccomendation) {
+<span class="nc" id="L290">        this.userReccomendation = userReccomendation;</span>
+<span class="nc" id="L291">    }</span>
+
+    public ArrayList&lt;Music&gt; getAllMusic() {
+<span class="nc" id="L294">        return allMusic;</span>
+    }
+
+    public void setAllMusic(ArrayList&lt;Music&gt; allMusic) {
+<span class="nc" id="L298">        this.allMusic = allMusic;</span>
+<span class="nc" id="L299">    }</span>
+
+    public ArrayList&lt;User&gt; getDummyUsers() {
+<span class="nc" id="L302">        return dummyUsers;</span>
+    }
+
+    public void setDummyUsers(ArrayList&lt;User&gt; dummyUsers) {
+<span class="nc" id="L306">        this.dummyUsers = dummyUsers;</span>
+<span class="nc" id="L307">    }</span>
+
+    public ArrayList&lt;Map&lt;String, String&gt;&gt; getDebugVar() {
+<span class="nc" id="L310">        return debugVar;</span>
+    }
+
+    public void setDebugVar(ArrayList&lt;Map&lt;String, String&gt;&gt; debugVar) {
+<span class="nc" id="L314">        this.debugVar = debugVar;</span>
+<span class="nc" id="L315">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
