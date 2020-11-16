@@ -70,16 +70,16 @@ import spotifyalgotirhm.model.genre.Pop;
 <span class="fc" id="L70">            System.out.println(&quot;5. Exit&quot;);</span>
 <span class="fc" id="L71">            System.out.print(&quot;Your Option: &quot;);</span>
 <span class="fc" id="L72">            option = sc1.nextInt();</span>
-<span class="pc bpc" id="L73" title="3 of 6 branches missed.">            switch (option) {</span>
+<span class="pc bpc" id="L73" title="4 of 6 branches missed.">            switch (option) {</span>
                 case 1:
-<span class="fc" id="L75">                    musicList(allMusic);</span>
-<span class="fc" id="L76">                    break;</span>
+<span class="nc" id="L75">                    musicList(allMusic);</span>
+<span class="nc" id="L76">                    break;</span>
                 case 2:
-<span class="nc" id="L78">                    musicList(currentUser.getListenTo());</span>
-<span class="nc" id="L79">                    break;</span>
+<span class="fc" id="L78">                    musicList(currentUser.getListenTo());</span>
+<span class="fc" id="L79">                    break;</span>
                 case 3:
-<span class="fc" id="L81">                    musicList(currentUser.getRecommendation());</span>
-<span class="fc" id="L82">                    break;</span>
+<span class="nc" id="L81">                    musicList(currentUser.getRecommendation());</span>
+<span class="nc" id="L82">                    break;</span>
                 case 4:
 <span class="nc" id="L84">                    debugAlgorithm();</span>
 <span class="nc" id="L85">                    break;</span>
@@ -118,83 +118,83 @@ import spotifyalgotirhm.model.genre.Pop;
 
     public void musicList(List&lt;Music&gt; musics) throws InterruptedException {
 <span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if (musics.size() == 0) {</span>
-<span class="nc" id="L121">            System.out.println(&quot;We don't currently have any data on that, try listening to some music first&quot;);</span>
+<span class="fc" id="L121">            System.out.println(&quot;We don't currently have any data on that, try listening to some music first&quot;);</span>
         } else {
-<span class="fc" id="L123">            boolean stop = false;</span>
-<span class="fc" id="L124">            Scanner sc1 = new Scanner(System.in);</span>
+<span class="nc" id="L123">            boolean stop = false;</span>
+<span class="nc" id="L124">            Scanner sc1 = new Scanner(System.in);</span>
             int option;
-<span class="fc" id="L126">            int possibleIndex = musics.size();</span>
-<span class="fc" id="L127">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;No&quot;, &quot;Title&quot;, &quot;Band&quot;, &quot;Genre&quot;);</span>
-<span class="fc" id="L128">            System.out.println(&quot;&quot;);</span>
-<span class="fc" id="L129">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;--&quot;, &quot;-----&quot;, &quot;----&quot;, &quot;-----&quot;);</span>
-<span class="fc" id="L130">            System.out.println(&quot;&quot;);</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">            for (int i = 0; i &lt; musics.size(); i++) {</span>
-<span class="fc" id="L132">                System.out.format(&quot;%-5d%-25s%-15s%-7s&quot;, i + 1, musics.get(i).getTitle(), musics.get(i).getBand().getName(), musics.get(i).getGenre().getGenre());</span>
-<span class="fc" id="L133">                System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L126">            int possibleIndex = musics.size();</span>
+<span class="nc" id="L127">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;No&quot;, &quot;Title&quot;, &quot;Band&quot;, &quot;Genre&quot;);</span>
+<span class="nc" id="L128">            System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L129">            System.out.format(&quot;%-5s%-25s%-15s%-7s&quot;, &quot;--&quot;, &quot;-----&quot;, &quot;----&quot;, &quot;-----&quot;);</span>
+<span class="nc" id="L130">            System.out.println(&quot;&quot;);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">            for (int i = 0; i &lt; musics.size(); i++) {</span>
+<span class="nc" id="L132">                System.out.format(&quot;%-5d%-25s%-15s%-7s&quot;, i + 1, musics.get(i).getTitle(), musics.get(i).getBand().getName(), musics.get(i).getGenre().getGenre());</span>
+<span class="nc" id="L133">                System.out.println(&quot;&quot;);</span>
             }
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">            while (stop == false) {</span>
-<span class="fc" id="L136">                System.out.print(&quot;Your Option: &quot;);</span>
-<span class="fc" id="L137">                option = sc1.nextInt();</span>
-<span class="pc bpc" id="L138" title="1 of 2 branches missed.">                if (option &gt; possibleIndex) {</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">            while (stop == false) {</span>
+<span class="nc" id="L136">                System.out.print(&quot;Your Option: &quot;);</span>
+<span class="nc" id="L137">                option = sc1.nextInt();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">                if (option &gt; possibleIndex) {</span>
 <span class="nc" id="L139">                    System.out.println(&quot;Invalid Option&quot;);</span>
                 } else {
-<span class="fc" id="L141">                    stop = true;</span>
-<span class="fc" id="L142">                    playMusic(musics.get(option - 1));</span>
-<span class="fc" id="L143">                    break;</span>
+<span class="nc" id="L141">                    stop = true;</span>
+<span class="nc" id="L142">                    playMusic(musics.get(option - 1));</span>
+<span class="nc" id="L143">                    break;</span>
                 }
             }
         }
 <span class="fc" id="L147">    }</span>
 
     private void defineAlgorithm(Music music) {
-<span class="fc bfc" id="L150" title="All 2 branches covered.">        for (int i = 0; i &lt; dummyUsers.size(); i++) {</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">        for (int i = 0; i &lt; dummyUsers.size(); i++) {</span>
             // First for loop is being used to loop every available user in the app
-<span class="fc bfc" id="L152" title="All 2 branches covered.">            if (dummyUsers.get(i).getListenTo().contains(music)) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">            if (dummyUsers.get(i).getListenTo().contains(music)) {</span>
                 /*
                  IF theres a similarity to a user in the app then the algorithm will grab all of those 
                  particular user playlist
                  */
-<span class="fc bfc" id="L157" title="All 2 branches covered.">                for (int j = 0; j &lt; dummyUsers.get(i).getListenTo().size(); j++) {</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">                for (int j = 0; j &lt; dummyUsers.get(i).getListenTo().size(); j++) {</span>
                     /**
                      * after grabbing every song in the similar user playlist
                      * the program will re-set the current user recommendation
                      */
-<span class="fc" id="L162">                    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L163">                    map.put(dummyUsers.get(i).getName(), dummyUsers.get(i).getListenTo().get(j).getTitle());</span>
-<span class="fc" id="L164">                    debugVar.add(map);</span>
+<span class="nc" id="L162">                    Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L163">                    map.put(dummyUsers.get(i).getName(), dummyUsers.get(i).getListenTo().get(j).getTitle());</span>
+<span class="nc" id="L164">                    debugVar.add(map);</span>
 
-<span class="fc bfc" id="L166" title="All 2 branches covered.">                    if (userReccomendation.contains(dummyUsers.get(i).getListenTo().get(j))) {</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                    if (userReccomendation.contains(dummyUsers.get(i).getListenTo().get(j))) {</span>
                         // checking if the value in the list duplicates
                     } else {
-<span class="fc" id="L169">                        userReccomendation.add(dummyUsers.get(i).getListenTo().get(j));</span>
+<span class="nc" id="L169">                        userReccomendation.add(dummyUsers.get(i).getListenTo().get(j));</span>
                     }
 
                 }
             }
         }
-<span class="fc" id="L175">        currentUser.setRecommendation(userReccomendation);</span>
-<span class="fc" id="L176">    }</span>
+<span class="nc" id="L175">        currentUser.setRecommendation(userReccomendation);</span>
+<span class="nc" id="L176">    }</span>
 
     private void suggestNextSong(Music music) {
-<span class="fc" id="L179">        defineAlgorithm(music);</span>
-<span class="fc" id="L180">    }</span>
+<span class="nc" id="L179">        defineAlgorithm(music);</span>
+<span class="nc" id="L180">    }</span>
 
     public void playMusic(Music music) throws InterruptedException {
-<span class="fc" id="L183">        System.out.println(&quot;Song &quot; + music.getTitle() + &quot; Is Now Playing&quot;);</span>
-<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="fc" id="L185">            Thread.sleep(500);</span>
-<span class="fc" id="L186">            System.out.print(&quot;.&quot;);</span>
+<span class="nc" id="L183">        System.out.println(&quot;Song &quot; + music.getTitle() + &quot; Is Now Playing&quot;);</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L185">            Thread.sleep(500);</span>
+<span class="nc" id="L186">            System.out.print(&quot;.&quot;);</span>
         }
-<span class="fc" id="L188">        System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L188">        System.out.println(&quot;&quot;);</span>
         // Setting the recently played song for the current user
-<span class="fc" id="L190">        List&lt;Music&gt; tempPlayList = currentUser.getListenTo();</span>
-<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        if (!tempPlayList.contains(music)) {</span>
+<span class="nc" id="L190">        List&lt;Music&gt; tempPlayList = currentUser.getListenTo();</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        if (!tempPlayList.contains(music)) {</span>
             // Checking if value duplicates
-<span class="fc" id="L193">            tempPlayList.add(music);</span>
-<span class="fc" id="L194">            currentUser.setListenTo(tempPlayList);</span>
+<span class="nc" id="L193">            tempPlayList.add(music);</span>
+<span class="nc" id="L194">            currentUser.setListenTo(tempPlayList);</span>
         }
-<span class="fc" id="L196">        suggestNextSong(music);</span>
-<span class="fc" id="L197">    }</span>
+<span class="nc" id="L196">        suggestNextSong(music);</span>
+<span class="nc" id="L197">    }</span>
 
     public void populateData() {
         // Populating the band
