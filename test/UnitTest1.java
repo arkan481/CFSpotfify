@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -97,6 +99,13 @@ public class UnitTest1 extends TestCase {
 
     }
 
+    // Saga Test Music List Kosong
+    @Test
+    public void testEmptyRecommendationList() {
+        System.out.println("\n Testing Current User Recommendation Before Playing Anything");
+        Assert.assertThat(instance.getUserReccomendation().isEmpty(), CoreMatchers.is(true));
+    }
+
     // Test apakah rekomendasi nya tepat: Before - After
     @Test
     public void testRecommendation() {
@@ -107,13 +116,7 @@ public class UnitTest1 extends TestCase {
             Logger.getLogger(UnitTest1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    // Saga Test Option Not Found
-    
-    
-    // Saga Test Music List Kosong
-    
-    
+
     // Test recently played: Before - After
     @After
     public void testRecentlyPlayedAfter() {
@@ -135,7 +138,30 @@ public class UnitTest1 extends TestCase {
     @AfterClass
     public void testFinalRecommendation() {
         System.out.println("\nThe final recommendation is: ");
-//        printMusicLists(musicListToString(instance.getUserReccomendation()));
+
+        Band rhcp = new Band("RHCP");
+        Band gd = new Band("Grateful Dead");
+        Band jmt = new Band("JM Trio");
+
+        // Populating the music
+        Music californiacation = new Music("Californiacation", rhcp, new Alternative());
+        Music scarTissue = new Music("Scar Tissue", rhcp, new Alternative());
+
+        Music althea = new Music("Althea", gd, new Blues());
+        Music sdStreet = new Music("Shakedown Street", gd, new Funk());
+
+        Music gravity = new Music("Gravity", jmt, new Pop());
+        Music helpless = new Music("Helpless", jmt, new Funk());
+        
+        List<Music> expectedRecommendation = new ArrayList<>();
+        expectedRecommendation.add(gravity);
+        expectedRecommendation.add(californiacation);
+        expectedRecommendation.add(sdStreet);
+        expectedRecommendation.add(scarTissue);
+        expectedRecommendation.add(helpless);
+        
+        assertEquals(musicListToString(expectedRecommendation), musicListToString(instance.getUserReccomendation()));
+
         instance.debugAlgorithm();
     }
 

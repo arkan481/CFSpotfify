@@ -113,7 +113,6 @@ public class Spotify {
         for (int i = 0; i < debugVar.size(); i++) {
             System.out.println(debugVar.get(i));
         }
-
     }
 
     public void musicList(List<Music> musics) throws InterruptedException {
