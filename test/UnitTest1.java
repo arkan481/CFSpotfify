@@ -197,4 +197,10 @@ public class UnitTest1 extends TestCase {
 
         return musicTitles;
     }
+    
+    private void newFunction(){
+        String h = "Hallo World";
+        
+        System.out.println(h);
+    };
 }
