@@ -16,35 +16,8 @@ public class SpotifyAlgotirhm {
      */
     public static void main(String[] args) throws InterruptedException {
         // TODO code application logic here
-//        Spotify spotify = new Spotify();
-//        spotify.run();
-
-        String iniKataKataNya = "anekamakanan.";
-        int totalSemuaKataSebelumTitik = 0;
-        int totalSemuaVocalSebelumTitik = 0;
-
-        for (int i = 0; i < iniKataKataNya.length(); i++) {
-            if (iniKataKataNya.charAt(i) == '.') {
-                break;
-            }
-
-            totalSemuaKataSebelumTitik++;
-            if (iniKataKataNya.charAt(i) == 'a'
-                    || iniKataKataNya.charAt(i) == 'A'
-                    || iniKataKataNya.charAt(i) == 'i'
-                    || iniKataKataNya.charAt(i) == 'I'
-                    || iniKataKataNya.charAt(i) == 'u'
-                    || iniKataKataNya.charAt(i) == 'U'
-                    || iniKataKataNya.charAt(i) == 'e'
-                    || iniKataKataNya.charAt(i) == 'E'
-                    || iniKataKataNya.charAt(i) == 'o'
-                    || iniKataKataNya.charAt(i) == 'O') {
-                totalSemuaVocalSebelumTitik++;
-            }
-
-        }
-
-        System.out.println("jumlah semua kata: " + totalSemuaKataSebelumTitik + "\njumlah semua vocal: " + totalSemuaVocalSebelumTitik);
+        Spotify spotify = new Spotify();
+        spotify.run();
 
     }
 
